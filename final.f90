@@ -259,7 +259,7 @@ do i = 1,n                                              !velocity rescaling
 
 	v2(i) = vx(i)**2 + vy(i)**2 + vz(i)**2
 	v(i) = sqrt(v2(i))
-	sumv2 = sumv2 + v2(i)
+	sv2 = sv2 + v2(i)
 end do
 
 sv2 = sv2/real(n)
