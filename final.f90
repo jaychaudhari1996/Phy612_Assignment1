@@ -19,7 +19,7 @@ real, dimension (nrand) :: rx1,rx2,ry1,ry2,rz1,rz2,rvx1,rvx2,rvy1,rvy2,rvz1,rvz2
 real, dimension (n) :: x,y,z,vx,vy,vz				!allocated random numbers
 real, dimension (n) :: xp,yp,zp,v,v2,fx,fy,fz,xx,yy,zz		!previous_position,velocity,forces,dump_position calculations
 real, dimension (n,n) :: xr,yr,zr,r,ffx,ffy,ffz			!distance, position, forces vectors
-integer :: i,j,k,cnt						!loopers
+integer :: i,j,k,cnt,time					!loopers
 
 real :: ljcut,sfx,sfy,sfz,svx,svy,svz,sv2,avgv,tempn,temp
 
@@ -269,7 +269,7 @@ print*,"Final temperature =",temp
 
 	call prev_pos()
 
-do i = 1,t
+do time = 1,t
 	call force()
 	call update_pos()
 end do
