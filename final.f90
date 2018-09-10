@@ -116,6 +116,12 @@ do i = 1,n
 	y(i) = 2.*y(i) - yp(i) + ((dt**2)*fy(i))/mp
 	z(i) = 2.*z(i) - zp(i) + ((dt**2)*fz(i))/mp
 	
+	vx(i) = (x(i) - xp(i))/(2.*dt)
+        vy(i) = (y(i) - yp(i))/(2.*dt)
+        vz(i) = (z(i) - zp(i))/(2.*dt)
+        
+	v2(i) = vx(i)**2 + vy(i)**2 + vz(i)**2
+	
 	if (x(i) .lt. 0.0) x(i) = x(i) + sbox                       !periodic boundary conditions
 	if (x(i) .gt. sbox) x(i) = x(i) - sbox
 	if (y(i) .lt. 0.0) y(i) = y(i) + sbox
@@ -126,6 +132,21 @@ do i = 1,n
         xp(i) = xx(i)
         yp(i) = yy(i)
         zp(i) = zz(i)
+end do
+
+svx = 0.0
+svy = 0.0
+svz = 0.0
+sv2 = 0.0
+
+do i = 1,n
+	svx = svx + vx(i)
+	svy = svy + vy(i)
+	svz = svz + vz(i)
+	
+	sv2 = sv2 + v2(i)
+	sv2 = sv2/real(n)
+	temp = sv2/3.0
 end do
 return
 end subroutine 
@@ -275,6 +296,8 @@ do time = 1,t
 	call force()
 	write (20,*) sfx,sfy,sfz,time
 	call update_pos()
+	write (30,*) svx,svy,svz,time
+	write (40,*) temp,time
 end do
 
 end program MD
