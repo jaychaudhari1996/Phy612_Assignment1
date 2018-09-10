@@ -136,7 +136,9 @@ end subroutine
 program MD
 use variables
 
-open(20,file="rij.dat")
+open(20,file="force_time.dat")
+open(30,file="momentum_time.dat")
+open(40,file="temperature_time.dat")
 
 x(1) = 1.0
 y(1) = 1.0
@@ -271,6 +273,7 @@ print*,"Final temperature =",temp
 
 do time = 1,t
 	call force()
+	write (20,*) sfx,sfy,sfz,time
 	call update_pos()
 end do
 
