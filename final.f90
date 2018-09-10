@@ -1,4 +1,4 @@
-module variables
+!module variables
 implicit none
 
 !constants
