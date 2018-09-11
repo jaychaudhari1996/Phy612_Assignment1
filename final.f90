@@ -185,7 +185,7 @@ do i = 2,n
 	j=1
 	k=1
 	do while (j.lt.i)
-		if (((rx2(k)-x(j))**2 + (ry2(k)-y(j))**2 + (rz2(k)-z(j))**2) .gt. (4.0)) then
+		if (((rx2(k)-x(j))**2 + (ry2(k)-y(j))**2 + (rz2(k)-z(j))**2) .gt. (dp**2)) then
 		j = j+1
 		else
 		k = k + 1
@@ -204,13 +204,13 @@ do i = 2,n
 		yr(i,j) = y(i) - y(j)
 		zr(i,j) = z(i) - z(j)
 
-		xr(i,j) = xr(i,j) - boxl*nint(xr(i,j)/boxl)		!minimum image convention
-		yr(i,j) = yr(i,j) - boxl*nint(yr(i,j)/boxl)
-		zr(i,j) = zr(i,j) - boxl*nint(zr(i,j)/boxl)
+		xr(i,j) = xr(i,j) - sbox*nint(xr(i,j)/sbox)		!minimum image convention
+		yr(i,j) = yr(i,j) - sbox*nint(yr(i,j)/sbox)
+		zr(i,j) = zr(i,j) - sbox*nint(zr(i,j)/sbox)
 
 		r(i,j) = sqrt(xr(i,j)**2 + yr(i,j)**2 + zr(i,j)**2)	!distance between every pairs
 	
-		if (r(i,j) .lt. sig) then                                !check whether there is any overlap
+		if (r(i,j) .lt. dp) then                               !check whether there is any overlap
 		cnt = cnt+1
 		end if
 	end do
@@ -288,7 +288,7 @@ end do
 sv2 = sv2/real(n)
 temp = sv2/3.0
 print*,"Final temperature =",temp
-	print*,sum(vx),sum(vy),sum(vz)
+	!print*,sum(vx),sum(vy),sum(vz)
 
 	call prev_pos()
 
